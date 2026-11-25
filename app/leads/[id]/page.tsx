@@ -44,7 +44,7 @@ export default async function ViewLeadPage({ params }: Params) {
           showRemoteResolved={false}
           statusBanner={
             <div className="rounded-xl border border-[#BBF7D0] bg-[#ECFDF5] px-4 py-3 text-sm text-[#166534]">
-              ✓ Отправлена в Bitrix24. ID лида: {lead.bitrixLeadId ?? "—"}.
+              ✓ Отправлена в Bitrix24. ID сделки: {lead.bitrixLeadId ?? "—"}.
               {lead.submittedAt ? ` ${formatDateTime(lead.submittedAt)}` : ""}
             </div>
           }

@@ -16,14 +16,30 @@ export type BitrixLeadResult =
   | { ok: true; leadId: string }
   | { ok: false; error: string };
 
-function buildComments(
-  description: string,
-  diagnostics?: string | null,
-): string {
-  if (diagnostics && diagnostics.trim()) {
-    return `${description}\n\nДиагностика: ${diagnostics}`;
-  }
-  return description;
+/** Пользовательские поля сделки Bitrix24 */
+const UF = {
+  contactPerson: "UF_CRM_1779446113",
+  contactPhone: "UF_CRM_1779446125",
+  equipment: "UF_CRM_DEAL_1795506483247",
+  serialNumber: "UF_CRM_1782111840474",
+  address: "UF_CRM_1773210251314",
+  description: "UF_CRM_1773210262758",
+  diagnostics: "UF_CRM_1795184351",
+} as const;
+
+function buildComments(payload: BitrixLeadPayload): string {
+  const parts = [
+    payload.description,
+    payload.diagnostics?.trim()
+      ? `Диагностика: ${payload.diagnostics.trim()}`
+      : null,
+    `Оборудование: ${payload.equipmentText}`,
+    payload.serialNumber?.trim() ? `S/N: ${payload.serialNumber.trim()}` : null,
+    payload.email?.trim() ? `Email: ${payload.email.trim()}` : null,
+    `Локальный номер: ${payload.localNumber}`,
+  ].filter(Boolean);
+
+  return parts.join("\n\n");
 }
 
 export async function createBitrixLead(
@@ -36,34 +52,31 @@ export async function createBitrixLead(
   }
 
   const categoryId = Number(process.env.BITRIX24_CATEGORY_ID ?? "3");
+  const sourceId = process.env.BITRIX24_SOURCE_ID?.trim() || "UC_PN5PHF";
 
+  // Создаём сделку в нужной воронке (CATEGORY_ID), не лид.
   const fields: Record<string, unknown> = {
     TITLE: `СЦ — ${payload.clientName} — ${payload.equipmentText}`,
-    NAME: payload.clientName,
-    PHONE: [{ VALUE: payload.phone, VALUE_TYPE: "WORK" }],
-    ADDRESS: payload.address,
-    COMMENTS: buildComments(payload.description, payload.diagnostics),
-    SOURCE_ID: "KC_WEBFORM",
-    ORIGIN_ID: `kc-${payload.localNumber}`,
-    // Воронка сделок в Bitrix24 (используется при конвертации лида → сделка)
     CATEGORY_ID: Number.isFinite(categoryId) ? categoryId : 3,
+    SOURCE_ID: sourceId,
+    ORIGIN_ID: `kc-${payload.localNumber}`,
+    COMMENTS: buildComments(payload),
+    [UF.contactPerson]: payload.clientName,
+    [UF.contactPhone]: payload.phone,
+    [UF.equipment]: payload.equipmentText,
+    [UF.address]: payload.address,
+    [UF.description]: payload.description,
   };
 
-  if (payload.email) {
-    fields.EMAIL = [{ VALUE: payload.email, VALUE_TYPE: "WORK" }];
+  if (payload.serialNumber?.trim()) {
+    fields[UF.serialNumber] = payload.serialNumber.trim();
   }
 
-  // Оборудование и S/N дублируем в COMMENTS — пользовательские UF-коды в CRM
-  // могут отсутствовать и ломать создание лида.
-  const equipmentBlock = [
-    `Оборудование: ${payload.equipmentText}`,
-    payload.serialNumber ? `S/N: ${payload.serialNumber}` : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
-  fields.COMMENTS = [fields.COMMENTS, equipmentBlock].filter(Boolean).join("\n\n");
+  if (payload.diagnostics?.trim()) {
+    fields[UF.diagnostics] = payload.diagnostics.trim();
+  }
 
-  const endpoint = webhookUrl.replace(/\/?$/, "/") + "crm.lead.add.json";
+  const endpoint = webhookUrl.replace(/\/?$/, "/") + "crm.deal.add.json";
 
   try {
     const response = await fetch(endpoint, {
