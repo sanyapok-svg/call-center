@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-label="A.E.L.">
+  <g transform="translate(8,8)" fill="#6B7280">
+    <polygon points="28,2 50,15 50,41 28,54 6,41 6,15" fill="none" stroke="#6B7280" stroke-width="2"/>
+    <polygon points="28,10 42,18 42,38 28,46 14,38 14,18" fill="#9CA3AF" opacity="0.35"/>
+  </g>
+  <text
+    x="78"
+    y="48"
+    font-family="Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+    font-size="42"
+    font-weight="800"
+    font-style="italic"
+    letter-spacing="2"
+    fill="#6B7280"
+  >A.E.L.</text>
+</svg>

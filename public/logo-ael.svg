@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-label="A.E.L.">
+  <defs>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D1D5DB"/>
+      <stop offset="45%" stop-color="#9CA3AF"/>
+      <stop offset="100%" stop-color="#4B5563"/>
+    </linearGradient>
+    <linearGradient id="metalDark" x1="0%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#9CA3AF"/>
+      <stop offset="100%" stop-color="#374151"/>
+    </linearGradient>
+  </defs>
+  <!-- Faceted hexagon mark -->
+  <g transform="translate(8,8)">
+    <polygon points="28,2 50,15 50,41 28,54 6,41 6,15" fill="url(#metal)" stroke="#6B7280" stroke-width="1"/>
+    <polygon points="28,10 42,18 42,38 28,46 14,38 14,18" fill="#F3F4F6" opacity="0.35"/>
+    <polygon points="28,2 50,15 42,18 28,10" fill="#E5E7EB"/>
+    <polygon points="50,15 50,41 42,38 42,18" fill="url(#metalDark)"/>
+    <polygon points="50,41 28,54 28,46 42,38" fill="#4B5563"/>
+    <polygon points="28,54 6,41 14,38 28,46" fill="#374151"/>
+    <polygon points="6,41 6,15 14,18 14,38" fill="#6B7280"/>
+    <polygon points="6,15 28,2 28,10 14,18" fill="#D1D5DB"/>
+  </g>
+  <!-- Wordmark -->
+  <text
+    x="78"
+    y="48"
+    font-family="Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+    font-size="42"
+    font-weight="800"
+    font-style="italic"
+    letter-spacing="2"
+    fill="#C8102E"
+  >A.E.L.</text>
+</svg>

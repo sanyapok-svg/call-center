@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --ael-red: #c8102e;
+  --ael-red-dark: #a00d25;
+  --ael-bg: #f5f6f7;
+  --ael-surface: #ffffff;
+  --ael-text: #1f2328;
+  --ael-muted: #6b7280;
+  --ael-border: #e5e7eb;
+  --background: var(--ael-bg);
+  --foreground: var(--ael-text);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ael-red: var(--ael-red);
+  --color-ael-red-dark: var(--ael-red-dark);
+  --color-ael-bg: var(--ael-bg);
+  --color-ael-surface: var(--ael-surface);
+  --color-ael-text: var(--ael-text);
+  --color-ael-muted: var(--ael-muted);
+  --color-ael-border: var(--ael-border);
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--ael-bg);
+  color: var(--ael-text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(200, 16, 46, 0.15);
+}
