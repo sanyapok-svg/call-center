@@ -136,6 +136,7 @@ export function OperatorsAdmin({
           </div>
           <Button
             type="button"
+            className="w-full sm:w-auto"
             onClick={() => void createOperator()}
             disabled={creating || !email || !password}
           >

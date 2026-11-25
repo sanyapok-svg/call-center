@@ -332,8 +332,13 @@ export function LeadForm({
         </label>
       ) : null}
 
-      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <Button variant="ghost" type="button" onClick={() => router.push("/dashboard")}>
+      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:flex-wrap sm:justify-end">
+        <Button
+          variant="ghost"
+          type="button"
+          className="w-full sm:w-auto"
+          onClick={() => router.push("/dashboard")}
+        >
           {readOnly ? "Назад" : "Отмена"}
         </Button>
 
@@ -341,6 +346,7 @@ export function LeadForm({
           <Button
             variant="secondary"
             type="button"
+            className="w-full sm:w-auto"
             onClick={() => setConfirmDelete(true)}
             disabled={deleting}
           >
@@ -352,6 +358,7 @@ export function LeadForm({
           <Button
             variant="secondary"
             type="button"
+            className="w-full sm:w-auto"
             onClick={() => void saveDraft(true)}
             disabled={saving || submitting}
           >
@@ -363,6 +370,7 @@ export function LeadForm({
         {!readOnly ? (
           <Button
             type="button"
+            className="w-full sm:w-auto"
             onClick={() => void submitToBitrix()}
             disabled={saving || submitting}
           >
@@ -372,7 +380,11 @@ export function LeadForm({
         ) : null}
 
         {allowRetry && readOnly ? (
-          <Button type="button" onClick={() => setConfirmRetry(true)}>
+          <Button
+            type="button"
+            className="w-full sm:w-auto"
+            onClick={() => setConfirmRetry(true)}
+          >
             Повторить отправку
           </Button>
         ) : null}

@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "A.E.L. — Платформа заявок сервисного центра",
+  title: "A.E.L. — Платформа работы с заявками для сервисного центра",
   description: "Веб-форма колл-центра A.E.L. для создания заявок в Bitrix24",
 };
 

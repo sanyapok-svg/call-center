@@ -24,7 +24,7 @@ export default async function OperatorsPage() {
   return (
     <div className="min-h-screen bg-[#F5F6F7]">
       <Header email={user.email} isAdmin={user.isAdmin} />
-      <main className="mx-auto max-w-[1200px] px-6 py-8">
+      <main className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 sm:py-8">
         <div className="mb-2 text-sm text-[#6B7280]">
           <Link href="/dashboard" className="hover:text-[#C8102E]">
             Рабочий стол
@@ -32,7 +32,7 @@ export default async function OperatorsPage() {
           <span className="mx-2">→</span>
           <span className="text-[#1F2328]">Операторы</span>
         </div>
-        <h1 className="mb-6 text-2xl font-semibold text-[#1F2328]">
+        <h1 className="mb-6 text-xl font-semibold sm:text-2xl text-[#1F2328]">
           Управление операторами
         </h1>
         <OperatorsAdmin

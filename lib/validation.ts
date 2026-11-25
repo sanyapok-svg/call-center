@@ -17,17 +17,18 @@ export const leadFormSchema = z.object({
   email: z
     .string()
     .trim()
-    .email("Некорректный email")
-    .optional()
-    .or(z.literal("")),
+    .refine(
+      (value) => value === "" || z.string().email().safeParse(value).success,
+      "Некорректный email",
+    ),
   equipmentText: z
     .string()
     .trim()
     .min(1, "Укажите оборудование (производитель + модель + тип)"),
-  serialNumber: z.string().trim().optional().or(z.literal("")),
+  serialNumber: z.string().trim().optional().default(""),
   address: z.string().trim().min(1, "Укажите адрес нахождения оборудования"),
   description: z.string().trim().min(1, "Укажите описание неисправности"),
-  diagnostics: z.string().trim().optional().or(z.literal("")),
+  diagnostics: z.string().trim().optional().default(""),
 });
 
 export const createOperatorSchema = z.object({

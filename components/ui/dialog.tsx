@@ -53,13 +53,20 @@ export function Dialog({
           <p className="mt-2 text-sm text-[#6B7280]">{description}</p>
         ) : null}
         {children ? <div className="mt-4">{children}</div> : null}
-        <div className="mt-6 flex justify-end gap-3">
-          <Button type="button" variant="ghost" onClick={onCancel} disabled={loading}>
+        <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <Button
+            type="button"
+            variant="ghost"
+            className="w-full sm:w-auto"
+            onClick={onCancel}
+            disabled={loading}
+          >
             {cancelLabel}
           </Button>
           <Button
             type="button"
             variant={confirmVariant}
+            className="w-full sm:w-auto"
             onClick={onConfirm}
             disabled={loading || confirmDisabled}
           >

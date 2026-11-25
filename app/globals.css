@@ -30,6 +30,10 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background: var(--ael-bg);
   color: var(--ael-text);
@@ -37,6 +41,7 @@ body {
     sans-serif;
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a {
@@ -46,4 +51,14 @@ a {
 
 ::selection {
   background: rgba(200, 16, 46, 0.15);
+}
+
+/* Safer tap targets / form controls on touch devices */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px;
+  }
 }

@@ -70,21 +70,23 @@ export default async function DashboardPage({
   return (
     <div className="min-h-screen bg-[#F5F6F7]">
       <Header email={user.email} isAdmin={user.isAdmin} />
-      <main className="mx-auto max-w-[1200px] px-6 py-8">
+      <main className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 sm:py-8">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-2xl font-semibold text-[#1F2328]">Заявки</h1>
+          <h1 className="text-xl font-semibold text-[#1F2328] sm:text-2xl">
+            Заявки
+          </h1>
           <Link href="/leads/new" className="w-full sm:w-auto">
             <Button className="w-full sm:w-auto">+ Создать заявку</Button>
           </Link>
         </div>
 
-        <div className="mb-6 grid gap-4 sm:grid-cols-3">
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
           <StatCard label="Черновики" value={draft} />
           <StatCard label="Отправлено" value={submitted} />
           <StatCard label="Ошибки" value={failed} />
         </div>
 
-        <div className="mb-4 flex flex-wrap gap-2 border-b border-[#E5E7EB]">
+        <div className="mb-4 -mx-4 flex gap-1 overflow-x-auto border-b border-[#E5E7EB] px-4 sm:mx-0 sm:flex-wrap sm:gap-2 sm:px-0">
           {FILTERS.map((filter) => {
             const active = status === filter.key;
             const href =
@@ -96,7 +98,7 @@ export default async function DashboardPage({
                 key={filter.key}
                 href={href}
                 className={cn(
-                  "px-3 py-2 text-sm font-medium text-[#6B7280]",
+                  "shrink-0 px-3 py-2 text-sm font-medium whitespace-nowrap text-[#6B7280]",
                   active && "border-b-2 border-[#C8102E] text-[#C8102E]",
                 )}
               >
@@ -121,7 +123,7 @@ function StatCard({ label, value }: { label: string; value: number }) {
     <Card>
       <CardContent className="p-5">
         <p className="text-sm text-[#6B7280]">{label}</p>
-        <p className="mt-1 text-[32px] leading-none font-bold text-[#1F2328]">
+        <p className="mt-1 text-[28px] leading-none font-bold text-[#1F2328] sm:text-[32px]">
           {value}
         </p>
       </CardContent>

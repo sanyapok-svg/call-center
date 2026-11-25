@@ -43,18 +43,18 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#F5F6F7]">
       <Header showNav={false} />
-      <main className="mx-auto flex max-w-[1200px] items-center justify-center px-6 py-16">
+      <main className="mx-auto flex max-w-[1200px] items-center justify-center px-4 py-8 sm:px-6 sm:py-16">
         <div
-          className="w-full max-w-[400px] rounded-xl bg-white p-10"
+          className="w-full max-w-[400px] rounded-xl bg-white p-6 sm:p-10"
           style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}
         >
           <div className="mb-6 flex justify-center">
             <Logo size="login" priority />
           </div>
-          <h1 className="mb-8 text-center text-xl font-semibold text-[#1F2328]">
-            Платформа заявок
+          <h1 className="mb-8 text-center text-lg font-semibold text-[#1F2328] sm:text-xl">
+            Платформа работы с заявками
             <br />
-            сервисного центра
+            для сервисного центра
           </h1>
 
           <form onSubmit={onSubmit} className="space-y-4">

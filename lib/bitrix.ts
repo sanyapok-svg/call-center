@@ -49,12 +49,15 @@ export async function createBitrixLead(
     fields.EMAIL = [{ VALUE: payload.email, VALUE_TYPE: "WORK" }];
   }
 
-  // Пользовательские поля Bitrix24 (символьные коды уточняются при интеграции).
-  // Если полей нет в CRM — значения уже есть в TITLE/COMMENTS.
-  fields.UF_CRM_EQUIPMENT_TEXT = payload.equipmentText;
-  if (payload.serialNumber) {
-    fields.UF_CRM_SERIAL_NUMBER = payload.serialNumber;
-  }
+  // Оборудование и S/N дублируем в COMMENTS — пользовательские UF-коды в CRM
+  // могут отсутствовать и ломать создание лида.
+  const equipmentBlock = [
+    `Оборудование: ${payload.equipmentText}`,
+    payload.serialNumber ? `S/N: ${payload.serialNumber}` : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+  fields.COMMENTS = [fields.COMMENTS, equipmentBlock].filter(Boolean).join("\n\n");
 
   const endpoint = webhookUrl.replace(/\/?$/, "/") + "crm.lead.add.json";
 
@@ -66,11 +69,20 @@ export async function createBitrixLead(
       cache: "no-store",
     });
 
-    const data = (await response.json()) as {
+    let data: {
       result?: number | string;
       error?: string;
       error_description?: string;
     };
+
+    try {
+      data = (await response.json()) as typeof data;
+    } catch {
+      return {
+        ok: false,
+        error: `Bitrix24 вернул неJSON ответ (HTTP ${response.status})`,
+      };
+    }
 
     if (!response.ok || data.error || data.result === undefined) {
       const message =
