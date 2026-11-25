@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { Header } from "@/components/Header";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -49,14 +49,7 @@ export default function LoginPage() {
           style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.06)" }}
         >
           <div className="mb-6 flex justify-center">
-            <Image
-              src="/logo-ael.svg"
-              alt="A.E.L."
-              width={180}
-              height={46}
-              className="h-auto w-[180px]"
-              priority
-            />
+            <Logo size="login" priority />
           </div>
           <h1 className="mb-8 text-center text-xl font-semibold text-[#1F2328]">
             Платформа заявок

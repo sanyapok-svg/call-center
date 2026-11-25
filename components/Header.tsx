@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -67,14 +67,7 @@ export function Header({ email, isAdmin, showNav = true }: HeaderProps) {
       <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-6">
         <div className="flex items-center gap-6">
           <Link href={showNav ? "/dashboard" : "/"} className="flex items-center">
-            <Image
-              src="/logo-ael.svg"
-              alt="A.E.L."
-              width={120}
-              height={28}
-              className="h-7 w-auto"
-              priority
-            />
+            <Logo size="header" priority />
           </Link>
           <nav className="hidden items-center gap-5 md:flex">{nav}</nav>
         </div>
