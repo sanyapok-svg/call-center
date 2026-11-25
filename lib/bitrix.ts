@@ -35,6 +35,8 @@ export async function createBitrixLead(
     return { ok: false, error: "BITRIX24_WEBHOOK_URL не настроен" };
   }
 
+  const categoryId = Number(process.env.BITRIX24_CATEGORY_ID ?? "3");
+
   const fields: Record<string, unknown> = {
     TITLE: `СЦ — ${payload.clientName} — ${payload.equipmentText}`,
     NAME: payload.clientName,
@@ -43,6 +45,8 @@ export async function createBitrixLead(
     COMMENTS: buildComments(payload.description, payload.diagnostics),
     SOURCE_ID: "KC_WEBFORM",
     ORIGIN_ID: `kc-${payload.localNumber}`,
+    // Воронка сделок в Bitrix24 (используется при конвертации лида → сделка)
+    CATEGORY_ID: Number.isFinite(categoryId) ? categoryId : 3,
   };
 
   if (payload.email) {
